@@ -1,158 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Academic Journey</title>
+    <meta charset="UTF-8">
+    <title>Personal Map Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-  <!-- Bootstrap & Leaflet dependencies (kept from your original code) -->
-  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    <!-- Leaflet & Plugins -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-      background-color: #fafafa;
-    }
-    header {
-      background-color: #f2f2f2;
-      text-align: center;
-      padding: 2rem;
-      border-bottom: 1px solid #ddd;
-    }
-    header h1 {
-      margin-bottom: 0.5rem;
-    }
-    header p {
-      color: #555;
-    }
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    section {
-      margin-bottom: 2rem;
-    }
-    .photos img {
-      max-width: 48%;
-      margin: 1%;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    footer {
-      background-color: #f2f2f2;
-      text-align: center;
-      padding: 1.5rem 0;
-      color: #777;
-      border-top: 1px solid #ddd;
-    }
-    /* Map container styling */
-    #map_22f99d7175f2bf8c75c23bbfb433ef61 {
-      width: 100%;
-      height: 600px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-  </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+    <!-- Bootstrap & FontAwesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        html, body { width: 100%; height: 100%; margin: 0; padding: 0; }
+        #map { position:absolute; top:0; bottom:0; right:0; left:0; }
+        .leaflet-container { font-size: 1rem; }
+    </style>
 </head>
-
 <body>
-  <!-- 🌍 HEADER -->
-  <header>
-    <h1>My Academic Journey</h1>
-    <p><em>From high school to professional life</em></p>
-  </header>
+    <!-- Teacher Template Section -->
+    <div class="container my-4">
+        <h2>Teacher Info Template</h2>
+        <p>Name: <strong>John Doe</strong></p>
+        <p>Education:</p>
+        <ul>
+            <li>B.Sc. Subject (Year)</li>
+            <li>M.Sc. Subject (Year)</li>
+            <li>PhD Subject (Year)</li>
+        </ul>
+        <p>Positions:</p>
+        <ul>
+            <li>Position 1 (Year)</li>
+            <li>Position 2 (Year)</li>
+        </ul>
+    </div>
 
-  <!-- 📘 ABOUT SECTION -->
-  <div class="container">
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        Welcome! This page shows my educational and professional journey visualized on an interactive map.
-        Below, you can explore the locations where I studied and worked. Each marker gives more details about that stage of my path.
-      </p>
-    </section>
+    <!-- Your Personal Map Section -->
+    <div id="map"></div>
 
-    <!-- 🖼 PHOTO GALLERY -->
-    <section id="photos">
-      <h2>Gallery</h2>
-      <div class="photos">
-        <!-- Add your photos here -->
-        <!-- <img src="photo1.jpg" alt="Photo 1 description"> -->
-        <!-- <img src="photo2.jpg" alt="Photo 2 description"> -->
-      </div>
-    </section>
+    <script>
+        // Initialize map
+        var map = L.map('map', { center: [40.0, 0.0], zoom: 2.3 });
 
-    <!-- 🗺 MAP SECTION -->
-    <section id="map-section">
-      <h2>Interactive Map</h2>
-      <p>You can zoom in and click on the markers to learn more about each stage of my academic and career journey.</p>
-      <div class="folium-map" id="map_22f99d7175f2bf8c75c23bbfb433ef61"></div>
-    </section>
+        // Base layer
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '© OpenStreetMap contributors © CARTO',
+            subdomains: 'abc',
+            maxZoom: 18
+        }).addTo(map);
 
-    <!-- 🧾 DETAILS -->
-    <section id="details">
-      <h2>Highlights</h2>
-      <ul>
-        <li><strong>High School:</strong> 2009–2013, Meppel, Netherlands</li>
-        <li><strong>Vocational Education:</strong> IT Administrator, Zwolle</li>
-        <li><strong>Bachelor’s Degree:</strong> Business Administration</li>
-        <li><strong>Work Experience:</strong> Landwaerme GmbH, Berlin</li>
-      </ul>
-    </section>
-  </div>
+        // Example marker template for your personal map
+        function addMarker(lat, lng, popupContent, tooltipContent) {
+            var marker = L.marker([lat, lng]).addTo(map);
+            var icon = L.AwesomeMarkers.icon({
+                markerColor: 'blue',
+                iconColor: 'white',
+                icon: 'info-sign',
+                prefix: 'glyphicon'
+            });
+            marker.setIcon(icon);
 
-  <!-- 📜 FOOTER -->
-  <footer>
-    <p>© 2025 Your Name – All Rights Reserved.</p>
-  </footer>
+            if (popupContent) marker.bindPopup(popupContent);
+            if (tooltipContent) marker.bindTooltip(tooltipContent, {sticky:true});
+        }
 
-  <!-- 🗺 MAP SCRIPT (unchanged from your original code) -->
-  <script>
-    L_NO_TOUCH = false;
-    L_DISABLE_3D = false;
-  </script>
+        // === Add your personal markers here ===
+        // Example markers (replace with your locations & info)
+        addMarker(52.695, 6.1944, "High School (2009–2013)", "Meppel, Netherlands");
+        addMarker(52.5168, 6.083, "Vocational Education Level 4 - IT Administrator (year)", "Zwolle, Netherlands");
 
-  <!-- 🔹 Your existing map initialization code goes here -->
-  <script>
-    // --- Your entire Leaflet JS from your current map file below ---
-    // (I’ve preserved all your coordinates, markers, popups, and polylines exactly as they were)
-
-    var map_22f99d7175f2bf8c75c23bbfb433ef61 = L.map(
-      "map_22f99d7175f2bf8c75c23bbfb433ef61",
-      {
-        center: [40.0, 0.0],
-        crs: L.CRS.EPSG3857,
-        zoom: 2.3,
-        zoomControl: true,
-        preferCanvas: false,
-      }
-    );
-
-    var tile_layer_2b531ce3631dddf5ce811c37b8be3d4e = L.tileLayer(
-      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-      {
-        minZoom: 0,
-        maxZoom: 18,
-        attribution: "© OpenStreetMap contributors © CARTO",
-        subdomains: "abc",
-      }
-    ).addTo(map_22f99d7175f2bf8c75c23bbfb433ef61);
-
-    // --- All your markers, icons, and polylines go here ---
-    // (You can paste your existing marker/popup code directly here)
-  </script>
+        // Example polyline (replace with your path if needed)
+        var polyline = L.polyline([[52.695,6.1944],[52.5168,6.083]], { color: 'darkblue', weight: 3 }).addTo(map);
+    </script>
 </body>
 </html>
