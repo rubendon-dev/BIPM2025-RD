@@ -2,48 +2,60 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Personal Map Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>My Personal Journey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Leaflet & Plugins -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
 
     <!-- Bootstrap & FontAwesome -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
-        html, body { width: 100%; height: 100%; margin: 0; padding: 0; }
-        #map { position:absolute; top:0; bottom:0; right:0; left:0; }
-        .leaflet-container { font-size: 1rem; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: white; color: #222; }
+        header { padding: 2rem; text-align: center; }
+        header h1 { margin-bottom: 0.5rem; }
+        section { padding: 2rem; max-width: 900px; margin: auto; }
+        #map { width: 100%; height: 500px; margin: 2rem 0; }
+        .profile-links a { margin-right: 1rem; }
+        ul { list-style-type: disc; padding-left: 1.5rem; }
     </style>
 </head>
 <body>
-    <!-- Teacher Template Section -->
-    <div class="container my-4">
-        <h2>Teacher Info Template</h2>
-        <p>Name: <strong>John Doe</strong></p>
-        <p>Education:</p>
-        <ul>
-            <li>B.Sc. Subject (Year)</li>
-            <li>M.Sc. Subject (Year)</li>
-            <li>PhD Subject (Year)</li>
-        </ul>
-        <p>Positions:</p>
-        <ul>
-            <li>Position 1 (Year)</li>
-            <li>Position 2 (Year)</li>
-        </ul>
-    </div>
 
-    <!-- Your Personal Map Section -->
-    <div id="map"></div>
+    <header>
+        <h1>My Personal Journey</h1>
+        <p>Follow the map below to explore key locations in my academic and personal life.</p>
+        <div class="profile-links">
+            <a href="https://www.linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+    </header>
+
+    <section>
+        <h2>About Me</h2>
+        <p><strong>Current University:</strong> Your University Name</p>
+        <p><strong>Birthplace:</strong> City, Country</p>
+        <p><strong>Hobbies:</strong> List your hobbies here</p>
+        <p><strong>Photos:</strong> Add photos here or leave space for them</p>
+    </section>
+
+    <section>
+        <h2>Academic Journey</h2>
+        <ul>
+            <li>High School (Year)</li>
+            <li>Vocational/College (Year)</li>
+            <li>Bachelor’s Degree (Year)</li>
+            <li>Master’s Degree (Year)</li>
+            <!-- Add more as needed -->
+        </ul>
+        <div id="map"></div>
+    </section>
 
     <script>
         // Initialize map
@@ -56,28 +68,26 @@
             maxZoom: 18
         }).addTo(map);
 
-        // Example marker template for your personal map
+        // Example marker function
         function addMarker(lat, lng, popupContent, tooltipContent) {
-            var marker = L.marker([lat, lng]).addTo(map);
             var icon = L.AwesomeMarkers.icon({
                 markerColor: 'blue',
                 iconColor: 'white',
                 icon: 'info-sign',
                 prefix: 'glyphicon'
             });
-            marker.setIcon(icon);
-
+            var marker = L.marker([lat, lng], {icon: icon}).addTo(map);
             if (popupContent) marker.bindPopup(popupContent);
             if (tooltipContent) marker.bindTooltip(tooltipContent, {sticky:true});
         }
 
         // === Add your personal markers here ===
-        // Example markers (replace with your locations & info)
         addMarker(52.695, 6.1944, "High School (2009–2013)", "Meppel, Netherlands");
-        addMarker(52.5168, 6.083, "Vocational Education Level 4 - IT Administrator (year)", "Zwolle, Netherlands");
+        addMarker(52.5168, 6.083, "Vocational Education Level 4 - IT Administrator (Year)", "Zwolle, Netherlands");
 
-        // Example polyline (replace with your path if needed)
-        var polyline = L.polyline([[52.695,6.1944],[52.5168,6.083]], { color: 'darkblue', weight: 3 }).addTo(map);
+        // Example polyline
+        L.polyline([[52.695,6.1944],[52.5168,6.083]], { color: 'darkblue', weight: 3 }).addTo(map);
     </script>
+
 </body>
 </html>
